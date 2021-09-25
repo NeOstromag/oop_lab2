@@ -34,6 +34,7 @@ namespace Prog2{
 
         public:
             //конструктор
+            explicit hypo();
             explicit hypo(Point start_point, double Rad = 5, double rad = 1, double dl = 1);
 
 
@@ -59,7 +60,8 @@ namespace Prog2{
 
 //вспомгательные функции
 int menu();
-double get_double();
+template<typename T>
+T input();
 
 double chat_R();
 double chat_r();

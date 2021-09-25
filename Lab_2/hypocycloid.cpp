@@ -8,6 +8,15 @@
 namespace Prog2{
 
     //конструктор
+
+    hypo::hypo() // пустой конструктор
+    {
+        start  = Point{0,0};
+        r = 0;
+        R = 0;
+        D = 0;
+    }
+
     hypo::hypo(Point start_point, double Rad, double rad,  double dl)
     {
         start = start_point;
@@ -111,26 +120,27 @@ int menu()
     };
     return a;
 }
-double get_double() {
+
+template<typename T>
+T input() {
     using namespace std;
-    double a;
-    do {
-        cin >> a;
-        if (!(cin.good())) {
-            cout << " [ERROR] Некорректное значение, повторите попытку:" << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << " > ";
-        }
-        else if(cin.eof()){
-            cout << "Конец файла" ;
-            std::exit(EXIT_SUCCESS);
-        }
-        else {
-            break;
-        }
-    } while (true);
-    return a;
+    T x;
+    if (cin.eof())
+        return x;
+
+    while (true) {
+        cin >> x;
+        if (cin.good())
+            return x;
+        if (cin.eof())
+            return x;
+        if (cin.bad())
+            throw runtime_error("Ошибка при чтении или записи памяти");
+
+        cout << "Ошибка" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 }
 
 double chat_R(){
@@ -139,7 +149,7 @@ double chat_R(){
     cout << " > Введите радиус большой окружности:"<<endl;
 
     cout << " > ";
-    R = get_double();
+    R = input<double>();
 
     return R;
 }
@@ -149,7 +159,7 @@ double chat_r(){
     cout << " > Введите радиус маленькой окружности:"<<endl;
 
     cout << " > ";
-    r = get_double();
+    r = input<double>();
 
     return r;
 }
@@ -159,7 +169,7 @@ double chat_d(){
     cout << " > Введите длину от маленькой окр до гипоциклоиды:"<<endl;
 
         cout << " > ";
-        d = get_double();
+        d = input<double>();
 
     return d;
 }
@@ -168,7 +178,7 @@ double chat_x(){
     using namespace std;
     cout << " > Введите координату по X:"<<endl;
     cout << " > ";
-    x = get_double();
+    x = input<double>();
     return x;
 }
 double chat_y(){
@@ -176,7 +186,7 @@ double chat_y(){
     using namespace std;
     cout << " > Введите координату по Y:"<<endl;
     cout << " > ";
-    y = get_double();
+    y = input<double>();
     return y;
 }
 double chat_fi(){
@@ -185,7 +195,7 @@ double chat_fi(){
     cout << " > Введите угол:"<<endl;
 
         cout << " > ";
-        fi = get_double();
+        fi = input<double>();
 
     return fi;
 }
